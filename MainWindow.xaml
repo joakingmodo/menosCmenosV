@@ -1,0 +1,99 @@
+﻿<Window x:Class="menosCmenosV.MenosCMenosV"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:menosCmenosV"
+        mc:Ignorable="d"
+        Title="GBAK" Height="450" Width="600"
+        ResizeMode="CanMinimize">
+
+    <Window.Resources>
+        <!-- Definindo o Storyboard para animar o Slideshow -->
+        <Storyboard x:Key="SlideshowStoryboard" RepeatBehavior="Forever">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backgroundImageBrush" Storyboard.TargetProperty="ImageSource">
+                <!-- Troca para a primeira imagem após 0 segundos -->
+                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="C:\\-c-v\file.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <!-- Troca para a segunda imagem após 5 segundos -->
+                <DiscreteObjectKeyFrame KeyTime="0:0:5">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="C:\-c-v\file2.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <!-- Troca para a terceira imagem após 10 segundos -->
+                <DiscreteObjectKeyFrame KeyTime="0:0:10">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="C:\\-c-v\file3.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:15">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="C:\\-c-v\file4.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:20">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="C:\\-c-v\file5.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <!-- Definindo o Background com ImageBrush -->
+    <Window.Background>
+        <ImageBrush x:Name="backgroundImageBrush" Stretch="UniformToFill"/>
+    </Window.Background>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2">
+            <TextBlock Text="Escolha a pasta de origem do GBAK" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+            <ComboBox x:Name="meuComboBox" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" ItemsSource="{Binding caminhos}" Text="Qual versão do Fire?" BorderBrush="Black" BorderThickness="2"/>
+            <Button x:Name="reset" Content="Limpar tudo" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Center" Width="100" Height="30" Click="reset_Click"/>
+        </Grid>
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2">
+        <Grid>
+            <StackPanel>
+                <TextBlock Text="Insira o nome do arquivo FDB aqui" HorizontalAlignment="Center"/>
+                <TextBox x:Name="outputFileNameTextBox" Height="30" Width="120" Margin="7" KeyDown="OutputFileNameTextBox_KeyDown" BorderBrush="Black" BorderThickness="2"/>
+                <Button x:Name="Button1" Content="Escolha o arquivo FBK" Width ="130" Height="30" Margin="7" Click="Button_Click1" BorderBrush="Black" BorderThickness="2"></Button>
+                <TextBlock x:Name="fbk" HorizontalAlignment="Center" Margin="7"/>
+                <Button x:Name="Button1_1" Content="Escolha a pasta de destino" Width="150" Height="30" Margin="7" Click="Button1_1_Click" BorderBrush="Black" BorderThickness="2"/>
+                    <TextBlock x:Name="destinofdb" HorizontalAlignment="Center" Margin="7"/>
+                <Button x:Name="Button1_2" Content="CONVERTER FDB" Width="100" Height="30" Margin="7" Click="Button1_2_Click" BorderBrush="Black" BorderThickness="2"/>
+                <CheckBox x:Name="excluifbk" Content="Excluir FBK ao terminar a conversão" Margin="7" HorizontalAlignment="Center" Checked="CheckBox_Checked"/>
+            </StackPanel>
+        </Grid>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Margin="0">
+        <Grid>
+            <StackPanel>
+                <TextBlock Text="Insira o nome do arquivo FBK aqui" HorizontalAlignment="Center"/>
+                <TextBox x:Name="outputFileNameTextBox1" Height="30" Width="120" Margin="7" VerticalAlignment="Top" KeyDown="OutputFileNameTextBox1_KeyDown" BorderBrush="Black" BorderThickness="2"/>
+                <Button x:Name="Button2" Content="Escolha o arquivo FDB" Width ="130" Height="30" Margin="7" Click="Button_Click_2" BorderBrush="Black" BorderThickness="2"></Button>
+                    <TextBlock x:Name="fdb" HorizontalAlignment="Center" Margin="7"/>
+                <Button x:Name="Button2_1" Content="Escolha a pasta de destino" Width="150" Height="30" Margin="7" Click="Button2_1_Click" BorderBrush="Black" BorderThickness="2"/>
+                    <TextBlock x:Name="destinofbk" HorizontalAlignment="Center" Margin="7"/>
+                <Button x:Name="Button2_2" Content="CONVERTER FBK" Width="100" Height="30" Margin="7" Click="Button2_2_Click" BorderBrush="Black" BorderThickness="2"/>
+            </StackPanel>
+        </Grid>
+        </Border>
+    </Grid>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource SlideshowStoryboard}"/>
+        </EventTrigger>
+    </Window.Triggers>
+</Window>
